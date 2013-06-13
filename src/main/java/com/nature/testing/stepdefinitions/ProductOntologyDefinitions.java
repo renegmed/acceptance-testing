@@ -5,19 +5,16 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import org.junit.Assert;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.junit.Assert;
 
-import cucumber.api.java.Before;
 import cucumber.api.java.After;
-import cucumber.api.java.en.Given;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -138,7 +135,8 @@ public class ProductOntologyDefinitions {
 		    getParams().
 		    setConnectionTimeout(2000);          
         
-	    GetMethod method = new GetMethod(psetUrl + productCode);		
+	    GetMethod method = new GetMethod(psetUrl + productCode);	
+	    method.setRequestHeader("Accept", "application/json");
 	     
 	    client.executeMethod(method);    
         reader = new InputStreamReader(new BufferedInputStream(method.getResponseBodyAsStream()));       
