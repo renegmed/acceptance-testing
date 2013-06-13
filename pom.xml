@@ -1,6 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
->
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.nature.testing</groupId>
 	<artifactId>acceptance</artifactId>
@@ -30,11 +29,6 @@
 			<version>${cucumber.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-		</dependency>
-		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.11</version>
@@ -58,28 +52,8 @@
 					<source>1.6</source>
 					<target>1.6</target>
 				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.1</version>
-				<executions>
-					<execution>
-						<id>copy-dependencies</id>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.build.directory}/lib</outputDirectory>
-							<overWriteReleases>true</overWriteReleases>
-							<overWriteSnapshots>true</overWriteSnapshots>
-							<overWriteIfNewer>true</overWriteIfNewer>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
+			</plugin> 
+ 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
@@ -95,29 +69,19 @@
 				</executions>
 				<configuration>
 					<executable>mvn</executable>
-					<mainClass>com.nature.testing.Main</mainClass>
+					<mainClass>com.nature.testing.AcceptanceTestRunner</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
 
-		<resources>
-
+		<resources> 
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
 				<includes>
 					<include>**/*</include>
 				</includes>
-			</resource>
-
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>false</filtering>
-				<includes>
-					<include>**/*</include>
-				</includes>
-			</resource>
-
+			</resource> 
 		</resources>
 	</build>
 </project>

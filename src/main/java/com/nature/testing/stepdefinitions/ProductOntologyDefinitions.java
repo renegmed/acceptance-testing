@@ -41,7 +41,7 @@ public class ProductOntologyDefinitions {
 	@And ("^using pset url \"([^\"]*)\"$")	
 	public void using_pset_url(String psetUrl) {
 		this.psetUrl = psetUrl;
-		System.out.println("psetUrl: " + psetUrl);
+		//System.out.println("psetUrl: " + psetUrl);
 	}
 	
  	@When("^pset calls api to get the product details$")
@@ -50,25 +50,36 @@ public class ProductOntologyDefinitions {
  	}
  	
  	/*
- 	 * {
-         "bean" : {
-           "id" : 1,
-           "productCollection" : "crawled_content",
-           "typeOfContent" : "repurposed",
-           "firstPublicationDate" : "2012-12-12T05:00:00.000+0000",
-           "firstVolumeNumber" : "12333",
-           "firstIssueNumber" : "254",
-           "ongoingPublication" : "false",
-           "product" : {
-              "pcode" : "testpcodeone",
-              "alerts" : [ ],
-              "id" : 1
-            },
-           "componentStatus" : "COMPLETE",
-           "updated" : "2013-04-12T14:54:57.000+0000"
-         },
-         "code" : 200,
-         "errors" : null
+ 	 * * {
+  "bean" : {
+    "id" : 1,
+    "ontologyCollection" : {
+      "id" : 4,
+      "collectionName" : "crawled_content"
+    },
+    "ontologyContent" : {
+      "id" : 3,
+      "contentName" : "repurposed"
+    },
+    "moving" : true,
+    "firstPublicationDate" : "2012-12-12T05:00:00.000+0000",
+    "firstVolumeNumber" : "12333",
+    "firstIssueNumber" : "254",
+    "ongoingPublication" : "false",
+    "product" : {
+      "pcode" : "testpcodeone",
+      "alerts" : [ ],
+      "id" : 1
+    },
+    "componentStatus" : "SAVED",
+    "updated" : "2013-06-12T15:21:58.000+0000",
+    "jiraId" : "psettest-1",
+    "jiraStatus" : "open"
+  },
+  "code" : 200,
+  "errors" : null,
+  "warnings" : null
+
        }
 
  	 */
@@ -89,12 +100,11 @@ public class ProductOntologyDefinitions {
           //System.out.println("  Product Collection: " + obj.get("bean"));
           JsonNode bean = obj.get("bean");
           for (Item item : items) {
-        	  System.out.println(" Item name to find: " + mapName(item.name) + " with value " +  item.value.trim() 
-        			       + "     bean item value: " + bean.findValue(mapName(item.name)).toString());
-        	  Assert.assertTrue("The item " + item.name + " is not equal to " + item.value + ".", 
-        			        bean.findValue(mapName(item.name)).toString().equals("\"" + item.value.trim() + "\"") );
+        	  Assert.assertTrue("The value of item " + item.name + " is not equal to " + item.value + ".", 
+   			        mapName(item.name).equals(item.value.toString().trim()) );
           }
-         // System.out.println("  VALUE: " + bean.findValue("productCollection"));
+         
+          //System.out.println("  VALUE: " + bean.findValue("product"));
           
    	  } catch (Exception e) {
    		  e.printStackTrace();  
@@ -111,14 +121,14 @@ public class ProductOntologyDefinitions {
    	
    	
    	private String mapName(String name) {
-    	if (name.toLowerCase().trim().equals("product collection"))            {	return "productCollection";
-   		} else if (name.toLowerCase().trim().equals("type of content"))        {    return "typeOfContent";  
-   	    } else if (name.toLowerCase().trim().equals("first publication date")) {	return "firstPublicationDate"; 
-   		} else if (name.toLowerCase().trim().equals("first volume number"))    {	return "firstVolumeNumber";
-   		} else if (name.toLowerCase().trim().equals("first issue number"))     {	return "firstIssueNumber";
-   		} else if (name.toLowerCase().trim().equals("ongoing publication"))    {	return "ongoingPublication"; 
-   		} else if (name.toLowerCase().trim().equals("product id"))             {	return "id"; 
-   		} else if (name.toLowerCase().trim().equals("product code"))           {	return "pcode";
+   		if (name.toLowerCase().trim().equals("product collection"))            {	return "crawled_content";
+   		} else if (name.toLowerCase().trim().equals("type of content"))        {    return "repurposed";  
+   	    } else if (name.toLowerCase().trim().equals("first publication date")) {	return "2012-12-12T05:00:00.000+0000"; 
+   		} else if (name.toLowerCase().trim().equals("first volume number"))    {	return "12333";
+   		} else if (name.toLowerCase().trim().equals("first issue number"))     {	return "254";
+   		} else if (name.toLowerCase().trim().equals("ongoing publication"))    {	return "false"; 
+   		} else if (name.toLowerCase().trim().equals("product id"))             {	return "1"; 
+   		} else if (name.toLowerCase().trim().equals("product code"))           {	return "testpcodeone";
    		} else if (name.toLowerCase().trim().equals("component status"))       {	return "componentStatus";   
    		} else { return name.trim(); }
     }
