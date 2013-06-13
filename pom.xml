@@ -86,6 +86,7 @@
 				<version>1.2.1</version>
 				<executions>
 					<execution>
+						<id>cucumber</id>
 						<phase>package</phase>
 						<goals>
 							<goal>exec</goal>
